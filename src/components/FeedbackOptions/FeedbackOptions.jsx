@@ -1,5 +1,5 @@
 import { Button, ButtonContainer } from './FeedbackOptions.styled';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 
 export function FeedbackOptions({ options, onLeaveFeedback }) {
   return (
@@ -13,7 +13,7 @@ export function FeedbackOptions({ options, onLeaveFeedback }) {
   );
 }
 
-FeedbackOptions.propTypes = {
-  options: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-  onLeaveFeedback: PropTypes.func.isRequired,
-};
+// FeedbackOptions.propTypes = {
+//   options: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+//   onLeaveFeedback: PropTypes.func.isRequired,
+// };

@@ -5,31 +5,31 @@ import { Statistics } from './Statistics/Statistics';
 import { NoFeedbackMassage } from './NoFeedbackMassage/NoFeedbackMassage';
 
 export function App() {
-  const [feedback, setFeedback] = useState({
-    good: 0,
-    bad: 0,
-    neutral: 0,
-  });
+  const [good, setGood] = useState(0);
+  const [bad, setBad] = useState(0);
+  const [neutral, setNeutral] = useState(0);
 
-  const { good, bad, neutral } = feedback;
+  const feedback = ['good', 'bad', 'neutral'];
   const handleClick = e => {
     const key = e.target.textContent;
     console.log(key);
-    setFeedback(
-      prevState => {
-        return {
-          ...prevState,
-          [key]: prevState[key] + 1,
-        };
-      },
-      [feedback]
-    );
+    switch (key) {
+      case 'good':
+        setGood(prevKey => prevKey + 1);
+        break;
+      case 'bad':
+        setBad(prevKey => prevKey + 1);
+        break;
+      case 'neutral':
+        setNeutral(prevKey => prevKey + 1);
+        break;
+
+      default:
+        return;
+    }
   };
   const countTotalFeedback = () => {
-    const total = Object.values(feedback).reduce((acc, el) => {
-      acc += el;
-      return acc;
-    }, 0);
+    const total = good + bad + neutral;
 
     if (total) {
       return total;
@@ -37,12 +37,8 @@ export function App() {
   };
   const countPositiveFeedbackPercentage = () => {
     const total = countTotalFeedback();
-    const possitiveValue = [feedback].reduce((acc, el) => {
-      acc += el['good'];
-      return acc;
-    }, 0);
 
-    const result = (possitiveValue / total) * 100;
+    const result = (good / total) * 100;
     if (!result) {
       return feedback.good;
     }
@@ -51,10 +47,7 @@ export function App() {
   return (
     <>
       <Section title="Please leave feedback">
-        <FeedbackOptions
-          options={Object.keys(feedback)}
-          onLeaveFeedback={handleClick}
-        />
+        <FeedbackOptions options={feedback} onLeaveFeedback={handleClick} />
       </Section>
       <Section title={'Statistic'}>
         {countTotalFeedback() ? (
